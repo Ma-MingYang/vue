@@ -5,11 +5,12 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
-
-import '../static/UEditor/ueditor.config.js'
+// 搞定ueditor
+/*** import '../static/UEditor/ueditor.config.js'
 import '../static/UEditor/ueditor.all.min.js'
 import '../static/UEditor/lang/zh-cn/zh-cn.js'
-import '../static/UEditor/ueditor.parse.min.js'
+import '../static/UEditor/ueditor.parse.min.js'*/
+
 // 引入echarts
 // import echarts from 'echarts'
  

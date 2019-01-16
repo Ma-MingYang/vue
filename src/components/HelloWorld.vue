@@ -94,6 +94,9 @@ export default {
             }
         }
     },
+    created(){
+        
+    },
     mounted: function () {
         // this.drawLine();
         // this.ue = UE.getEditor('editor', {

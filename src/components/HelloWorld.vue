@@ -1,7 +1,11 @@
 <template>
 <div class="hello">
+    <button @click="getUEContent()">getUEContent</button>
+    <div style='height:500px'>
+        <UE ref='ue' :defaultMsg=defaultMsg :config=config></UE>
 
-    <div id="myChart" :style="{ height: '300px'}"></div>
+    </div>
+    <!-- <div id="myChart" :style="{ height: '300px'}"></div> -->
     <!-- <el-row>
         <el-col :span="24">
             <div class="grid-content bg-purple-dark"></div>
@@ -71,123 +75,152 @@
 </template>
 
 <script>
-let echarts = require('echarts/lib/echarts')
-require('echarts/lib/chart/line')
-require('echarts/lib/component/tooltip')
-require('echarts/lib/component/title')
-require("echarts/lib/component/legend");
+// let echarts = require('echarts/lib/echarts')
 
+import UE from './ueditorTest.vue'
 export default {
     name: 'HelloWorld',
+    components: {
+        UE
+    },
     data() {
         return {
             msg: 'Welcome to Your Vue.js App',
             mainheight: document.body.clientHeight,
+            defaultMsg: 'uemoren',
+            config: {
+                initialFrameWidth: 1600,
+                initialFrameHeight: 350,
+            }
         }
     },
     mounted: function () {
-        this.drawLine();
+        // this.drawLine();
+        // this.ue = UE.getEditor('editor', {
+        //     'autoHeightEnabled': false
+        // })
     },
     methods: {
-        drawLine() {
-            let myChart = echarts.init(document.getElementById('myChart'))
-            // 绘制图表
-            myChart.setOption({
-                title: {
-                    // text: '某楼盘销售情况',
-                    // subtext: '纯属虚构'
-                },
-                tooltip: {
-                    trigger: 'axis'
-                },
-                legend: {
-                    data: ['idea', 'book', 'deal'],
-                    // /icon: "circle", //  这个字段控制形状  类型包括 circle，rect ，roundRect，triangle，diamond，pin，arrow，none
-
-                    itemWidth: 10, // 设置宽度
-
-                    itemHeight: 10, // 设置高度
-
-                    itemGap: 40 // 设置间距
-                },
-                toolbox: {
-                    show: true,
-                    feature: {
-                        mark: {
-                            show: true
-                        },
-                        dataView: {
-                            show: true,
-                            readOnly: false
-                        },
-                        magicType: {
-                            show: true,
-                            type: ['line', 'bar', 'stack', 'tiled']
-                        },
-                        restore: {
-                            show: true
-                        },
-                        saveAsImage: {
-                            show: true
-                        }
-                    }
-                },
-                calculable: true,
-                xAxis: [{
-                    type: 'category',
-                    boundaryGap: false,
-                    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-                }],
-                yAxis: [{
-                    type: 'value'
-                }],
-
-                series: [{
-                        name: 'deal',
-                        type: 'line',
-                        smooth: true,
-                        itemStyle: {
-                            normal: {
-                                areaStyle: {
-                                    type: 'default',
-                                    color:'lightblue'
-                                },
-                                // color: 'black',
-                                // borderColor: 'red'
-                            }
-                        },
-                        data: [10, 12, 21, 54, 260, 830, 710]
-                    },
-                    {
-                        name: 'book',
-                        type: 'line',
-                        smooth: true,
-                        itemStyle: {
-                            normal: {
-                                areaStyle: {
-                                    type: 'default'
-                                }
-                            }
-                        },
-                        data: [30, 182, 434, 791, 390, 30, 10]
-                    },
-                    {
-                        name: 'idea',
-                        type: 'line',
-                        smooth: true,
-                        itemStyle: {
-                            normal: {
-                                areaStyle: {
-                                    type: 'default'
-                                }
-                            }
-                        },
-                        data: [1320, 1132, 601, 234, 120, 90, 20]
-                    }
-                ]
+        // loadModel(){
+        //     this.ue.setContent('内容')
+        // },
+        getUEContent() {
+            let content = this.$refs.ue.getUEContent();
+            this.$notify({
+                title: '获取成功，可在控制台查看！',
+                message: content,
+                type: 'success'
             });
+            console.log(content)
+        },
+        // drawLine() {
+        //     let myChart = echarts.init(document.getElementById('myChart'))
+        //     // 绘制图表
+        //     myChart.setOption({
+        //         title: {
+        //             // text: '某楼盘销售情况',
+        //             // subtext: '纯属虚构'
+        //         },
+        //         tooltip: {
+        //             trigger: 'axis'
+        //         },
+        //         legend: {
+        //             data: ['idea', 'book', 'deal'], //与series中name保持一致，才会出现图例
+        //             // /icon: "circle", //  这个字段控制形状  类型包括 circle，rect ，roundRect，triangle，diamond，pin，arrow，none
 
-        }
+        //             itemWidth: 10, // 设置宽度
+
+        //             itemHeight: 10, // 设置高度
+
+        //             itemGap: 40 // 设置间距
+        //         },
+        //         toolbox: {
+        //             show: true,
+        //             feature: {
+        //                 mark: {
+        //                     show: true
+        //                 },
+        //                 dataView: {
+        //                     show: true,
+        //                     readOnly: false
+        //                 },
+        //                 magicType: {
+        //                     show: true,
+        //                     type: ['line', 'bar', 'stack', 'tiled']
+        //                 },
+        //                 restore: {
+        //                     show: true
+        //                 },
+        //                 saveAsImage: {
+        //                     show: true
+        //                 }
+        //             }
+        //         },
+        //         calculable: true,
+        //         xAxis: [{
+        //             type: 'category',
+        //             boundaryGap: false,
+        //             data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        //         }],
+        //         yAxis: [{
+        //             type: 'value'
+        //         }],
+
+        //         series: [{
+        //                 name: 'deal',
+        //                 type: 'line',
+        //                 smooth: false,
+        //                 itemStyle: {
+        //                     normal: {
+        //                         areaStyle: {
+        //                             type: 'default',
+        //                             color: 'lightblue'
+        //                         },
+        //                         // color: 'black',
+        //                         // borderColor: 'red'
+        //                     },
+        //                     lineStyle: {
+        //                         type: "dotted"
+        //                     }
+        //                 },
+        //                 data: [10, 12, 21, 54, 260, 830, 710]
+        //             },
+        //             {
+        //                 name: 'book',
+        //                 type: 'line',
+        //                 smooth: false,
+        //                 itemStyle: {
+        //                     normal: {
+        //                         areaStyle: {
+        //                             type: 'default'
+        //                         }
+        //                     },
+        //                     lineStyle: {
+        //                         type: "dotted"
+        //                     }
+        //                 },
+        //                 data: [30, 182, 434, 791, 390, 30, 10]
+        //             },
+        //             {
+        //                 name: 'idea',
+        //                 type: 'line',
+        //                 smooth: false,
+        //                 itemStyle: {
+        //                     normal: {
+        //                         areaStyle: {
+        //                             type: 'default'
+        //                         }
+        //                     },
+        //                     lineStyle: {
+        //                         type: "dotted"
+        //                     }
+        //                 },
+        //                 data: [1320, 1132, 601, 234, 120, 90, 20]
+        //             }
+        //         ]
+        //     });
+
+        // }
     },
     watch: {
         mainheight(val) {
@@ -209,7 +242,13 @@ export default {
 
 <style lang="scss" scoped>
 .hello {
-    height: 100%;
+    border-radius: 10px;
+    line-height: 20px;
+    padding: 10px;
+    margin: 10px;
+    background-color: #ffffff;
+    // height: 300px;
+    width: 70%;
 }
 
 .el-header {
